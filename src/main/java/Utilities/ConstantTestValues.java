@@ -1,5 +1,10 @@
 package Utilities;
 
+import CustomExceptions.ArrayMismatchException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public interface ConstantTestValues {
     //String Arrays (Musical Albums)
     String[] stringArray1dDaftPunk = {"Da Funk / Rollin' and Stratchin' ","Homework","Discovery","Alive 1997","Daft Club","Human After All", "Greatest Hits",
@@ -10,9 +15,14 @@ public interface ConstantTestValues {
     String[] stringArray1dBeatles = {"Please Please Me","With the Beatles","Introducing The Beatles","Meet the Beatles!","Twist and Shout", "A Hard Day's Night",
             "Something New", "Beatles for Sale", "Help!", "Rubber Soul", "Revolver", "Sgt. Pepper's Lonely Heart Club Band", "Magical Mystery Tour", "The Beatles"
             ,"Yellow Submarine","Abbey Road", "Let It Be"};
-    String[] getStringArray1dFooFighters = {"Foo Fighters", "The Colour and the Shape","There Is Nothing Left to Lose", "Generator", "One by One", "Everywhere but Home",
+    String[] stringArray1dFooFighters = {"Foo Fighters", "The Colour and the Shape","There Is Nothing Left to Lose", "Generator", "One by One", "Everywhere but Home",
             "B-sides", "In Your Honour", "Wasting Light", "Medium Rare", "Sonic Highways", "Saint Cecilia", "Concrete and Gold", "Easy Targets", "Medicine at Midnight",
             "Hail Satin"};
+    // Corresponding release years to previously declared album names //TODO ADD RELEASE YEARS!
+    Integer[] releaseYearsDaftpunk = {1995,1997,2001,2001,2003,2005,2006,2006,2006,2007,2010,2011,2011,2013,2020};
+    Integer[] releaseYearsAmerica = {1971,1972,1973,1974,1975,1976,1977,1979,1980,1980,1982,1982,1983,1984,1985,1994,1998};
+    Integer[] releaseYearsBeatles = {1963,1963,1964,1964,1964,1964,1964,1964,1965,1965,1966,1967,1967,1968,1969,1969,1970};
+    Integer[] releaseYearsFooFighters= {1995,1997,1999,2000,2002,2003,2004,2005,2011,2011,2014,2015,2017,2020,2021,2021};
 
     //Integer Arrays (Student Numbers) SORTED!!
     Integer[] integerArrayStudentNumbers = {180101,180102,180103,180104,180105,180106,180107,180108,180110,180204,180320,180323,180532,180589,180599,180635,180681,180742,
@@ -34,5 +44,33 @@ public interface ConstantTestValues {
 
     // 2-Dimensional Array
     Integer[][] basicInteger2dArray = {{10,11,13},{4,6,8},{24,1,56},{38,19,27},{29,31,42},{3,5,7},{27,9,21},{73,69,56},{88,78,75},{34,22,41},{17,44,52}};
+
+    //TODO CREATE AN ADJACENCY MATRIX FOR THE PATH FINDING ALGORITHMS
+    //TODO COMPLETE FUNCTION BELOW!
+
+    //REALLY DIRTY METHOD ;/
+    public static Album[] massAlbumCreator() throws ArrayMismatchException {
+        List<Album> albums = new ArrayList<>();
+
+        albums.addAll(albumListCreator("Daft Punk",stringArray1dDaftPunk,releaseYearsDaftpunk));
+        albums.addAll(albumListCreator("America",stringArray1dAmerica,releaseYearsAmerica));
+        albums.addAll(albumListCreator("The Beatles",stringArray1dBeatles,releaseYearsBeatles));
+        albums.addAll(albumListCreator("Foo Fighters",stringArray1dFooFighters,releaseYearsFooFighters));
+
+        Album[] tmp = new Album[albums.size()];
+        for (int i = 0; i < tmp.length; i ++)
+            tmp[i] = albums.get(i);
+        return tmp;
+    }
+    public static List<Album> albumListCreator(String artist, String[] albumNames, Integer[] releaseYears) throws ArrayMismatchException {
+        List<Album> tmp = new ArrayList<>();
+        if (albumNames.length != releaseYears.length)
+            throw new ArrayMismatchException("The album names ("+ artist +") and corresponding release year arrays have different lengths which will result in index out of bounds! " +
+                    "Release Years: " + releaseYears.length + " Album names: " + albumNames.length);
+        for (int i = 0; i < albumNames.length; i++){
+            tmp.add(new Album(artist,albumNames[i],releaseYears[i]));
+        }
+        return tmp;
+    }
 
 }

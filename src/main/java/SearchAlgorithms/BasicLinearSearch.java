@@ -8,7 +8,7 @@ public class BasicLinearSearch {
      * @param array The data input that is searched for the specified target value.
      * @param target The specified target that is searched for in the entered data storage.
      * @param <T> Method works with all data types.
-     * @return Returns an Integer index value that the specified target is stored in the specified data storage.
+     * @return Returns an Integer index value that the specified target is stored in the specified data storage or a -1 if the target is not found in the array.
      */
 
     public static <T> int linearSearch1d(T[] array, T target){
@@ -27,7 +27,7 @@ public class BasicLinearSearch {
      * @param array The 2-dimensional data array input that is searched for the specified target value.
      * @param target The specified target that is searched for in the entered data storage.
      * @param <T> Method works with all data types.
-     * @return Returns an Integer array with the target's coordinates within the 2-d storage array. Format for the array is as follows: {Y,X}
+     * @return Returns an Integer array with the target's coordinates within the 2-d storage array. Format for the array is as follows: {Y,X}, if the target is not found it returns a {-1,-1}
      */
     public static <T> int[] linearSearch2d(T[][] array, T target){
         for (int i = 0; i < array.length; i++){
