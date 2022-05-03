@@ -18,10 +18,8 @@ public class BinarySearchAlgorithm {
         int left = 0, right = array.length -1, mid;
         while (left < right){
             mid = (left + right-1)/2;
-            int tmp = array[mid].compareTo(target);
-
             System.out.println(array[mid]);
-            switch(tmp){
+            switch(array[mid].compareTo(target)){
                 case 0: return mid;
                 case -1:
                     left = mid + 1;
@@ -31,9 +29,24 @@ public class BinarySearchAlgorithm {
         }
         return -1;
     }
+    // TODO DOESNT WORK!!!
+    public static <T extends Comparable> int recursiveBinarySearch(T[] array, T target, int left, int right) {
+        if (left > right)
+            return -1;
+        int mid = (left + right)/2;
 
-    public static <T extends Comparable> int recursiveBinarySearch() {
-        return 0;
+        System.out.println("mid " + mid + " left " + left + " right " + right + " value indicator " + array[mid]);
+        switch (array[mid].compareTo(target)){
+            case 0:
+                break;
+            case -1:
+                recursiveBinarySearch(array,target,mid +1,right);
+                break;
+            case 1:
+                recursiveBinarySearch(array,target,left,mid-1);
+                break;
+        }
+        return (left + right)/2;
     }
 
 }
